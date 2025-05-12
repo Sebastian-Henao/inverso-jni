@@ -8,7 +8,7 @@ public class JavaInverso {
 
     public JavaInverso() {
         try{
-            System.loadLibrary("inversojni");
+            System.loadLibrary("inv");
             System.out.println("Biblioteca cargada exitosamente!");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Carga de la biblioteca fallida: " + e.getMessage());

@@ -2,7 +2,7 @@ services:
   spring-jni:
     image: 'sebastianhenaogamboa/inverso-jni:latest'
     ports:
-      - '8083:8080'
+      - '8083:8080'  # 8083 en el host mapeado a 8080 en el contenedor
     networks:
       - red-backend-app
 networks:
