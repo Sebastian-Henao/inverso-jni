@@ -4,7 +4,7 @@ package inversojni.lib;
  *  Clase que representa las funciones de la biblioteca dinamica JNI
  */
 public class JavaInverso {
-    public native String inverso(int a, int m);
+    public native String inversoJSON(int a, int m);
 
     public JavaInverso() {
         try{

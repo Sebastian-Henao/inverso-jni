@@ -1,19 +1,18 @@
-FROM openjdk:21
-VOLUME /tmp
+FROM openjdk:21-jdk-slim
+
+RUN apt-get update && apt-get install -y libjson-c-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Registrar la ruta /usr/lib para que el linker encuentre libcjson.so.1
+RUN apt-get update && \
+    apt-get install -y libjson-c-dev && \
+    ln -s /usr/lib/x86_64-linux-gnu/libjson-c.so /usr/lib/x86_64-linux-gnu/libcjson.so.1 && \
+    echo "/usr/lib/x86_64-linux-gnu" > /etc/ld.so.conf.d/libjson.conf && \
+    ldconfig && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+COPY target/inverso-jni-0.0.1-SNAPSHOT.jar /app.jar
+COPY libinv.so /usr/lib/
+
 EXPOSE 8080
 
-# Instala las dependencias necesarias (en este caso libcjson)
-RUN apt-get update && apt-get install -y libjson-c-dev
-
-# Este es el archivo .jar generado con el comando Maven
-ARG JAR_FILE=target/inverso-jni-0.0.1-SNAPSHOT.jar
-ADD ${JAR_FILE} app.jar
-
-# Copia la librería compartida al contenedor
-COPY libinv.so /lib64/
-
-# Configura la ruta de la librería para que Java pueda cargarla correctamente
-ENV LD_LIBRARY_PATH=/lib64:$LD_LIBRARY_PATH
-
-# Ejecuta la aplicación
-ENTRYPOINT ["java", "-Djava.library.path=/lib64", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Djava.library.path=/usr/lib", "-jar", "/app.jar"]

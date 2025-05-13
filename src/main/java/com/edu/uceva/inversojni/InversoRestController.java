@@ -16,5 +16,5 @@ public class InversoRestController {
     }
 
     @GetMapping("/inverso/{a}/{m}")
-    public String inverso(@PathVariable int a, @PathVariable int m)  {return inversor.inverso(a, m);}
+    public String inverso(@PathVariable int a, @PathVariable int m)  {return inversor.inversoJSON(a, m);}
 }
