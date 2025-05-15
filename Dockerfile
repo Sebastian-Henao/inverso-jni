@@ -1,4 +1,5 @@
-FROM openjdk:23
+FROM openjdk:23-slim
+RUN apt-get update && apt-get install -y libcjson-dev && rm -rf /var/lib/apt/lists
 VOLUME /tmp
 EXPOSE 8080
 ARG JAR_FILE=target/inverso-jni-0.0.1-SNAPSHOT.jar
