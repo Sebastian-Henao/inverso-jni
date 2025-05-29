@@ -2,7 +2,7 @@ services:
   spring-jni:
     image: 'sebastianhenaogamboa/inverso-jni:latest'
     ports:
-      - '8082:8082'
+      - '8092:8092'
     networks:
       - red-backend-app
 networks:
